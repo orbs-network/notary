@@ -39,6 +39,10 @@ module.exports = {
           prod ? MiniCssExtractPlugin.loader : 'style-loader',
           'css-loader'
         ]
+      },
+      {
+        test: /\.js$/,
+        loader: "transform-loader?brfs"
       }
     ]
   },

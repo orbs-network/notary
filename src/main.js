@@ -1,5 +1,5 @@
 import App from './App.svelte';
-import { Notary, Audit, readFileFromBrowser, sha256 } from './notary';
+import { Notary, Audit, sha256 } from 'orbs-notary-lib';
 import {
   createAccount,
   Client,
@@ -35,7 +35,6 @@ const app = new App({
   props: {
     actions,
     audit,
-    readFileFromBrowser,
     sha256,
     privateKey: encodeHex(privateKey),
     address,
