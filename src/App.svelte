@@ -9,7 +9,6 @@
   let file, metadata, error, results, events, status;
   export let actions;
   export let audit;
-  export let readFileFromBrowser;
   export let sha256;
   export let txToPrismUrl;
   export let privateKey, address;
@@ -61,6 +60,16 @@
       error = { message: err };
       console.log(err);
     }
+  };
+
+  const readFileFromBrowser = (file) => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = ev => {
+        resolve(ev.target.result);
+      };
+      reader.readAsBinaryString(file);
+    });
   };
 </script>
 
