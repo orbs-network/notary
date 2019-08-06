@@ -7,6 +7,10 @@
   import Keys from './Keys.svelte';
 
   let file, metadata, error, results, events, status;
+  let showChoiceScreen = true;
+  let showRegister = false;
+  let showVerify = false;
+
   export let actions;
   export let audit;
   export let sha256;
@@ -71,6 +75,16 @@
       reader.readAsBinaryString(file);
     });
   };
+
+  const showRegisterHandler = () => {
+    showChoiceScreen = false;
+    showRegister = true;
+  }
+
+  const showVerifyHandler = () => {
+    showChoiceScreen = false;
+    showVerify = true;
+  }
 </script>
 
 <style>
@@ -90,6 +104,27 @@
   }
 </style>
 
+{#if showChoiceScreen}
+<div class="action-container register" on:click={showRegisterHandler}>
+<div class="action-cell">Register</div>
+</div>
+
+<div class="action-container verify" on:click={showVerifyHandler}>
+<span class="action-cell">Verify</span>
+</div>
+{:else if showRegister}
+<div class="header">
+<img src="./orbs.svg"/><img src="./orbs-text.svg"/>
+</div>
+
+<div class="content">
+</div>
+{:else if showVerify}}
+verify
+{/if}
+
+
+<!--
 <div class="container">
   <h1>Orbs Notary</h1>
   <Keys privateKey={privateKey} address={address}/>
@@ -130,3 +165,4 @@
     <Audit events={events} />
   {/if}
 </div>
+-->
