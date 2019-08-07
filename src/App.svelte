@@ -117,10 +117,30 @@
 <img src="./orbs.svg"/><img src="./orbs-text.svg"/>
 </div>
 
+<div class="content-container">
+<div class="content-cell">
+  <div class="content-header">NOTARY FILE</div>
+  <div class="content-description">Orbs Notary serves two simple purposes:<br/>register and verify documents.</div>
+  <div class="content-dragndrop">
+    <div class="document-icons">
+      <img src="./pdf-file.svg"/>
+      <img src="./doc-file.svg"/>
+      <img src="./jpg-file.svg"/>
+    </div>
+    <div class="content-dragndrop-description">
+      <div class="content-dragndrop-description-header">DRAG & DROP</div>
+      <div class="content-dragndrop-description-subheader">to upload file</div>
+    </div>
+  </div>
+</div>
+</div>
+{:else if showVerify}
+<div class="header">
+<img src="./orbs.svg"/><img src="./orbs-text.svg"/>
+</div>
+
 <div class="content">
 </div>
-{:else if showVerify}}
-verify
 {/if}
 
 
