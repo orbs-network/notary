@@ -7,7 +7,9 @@
   const dispatch = createEventDispatcher();
 
   const handleFile = file => {
-    fileName = file.name;
+    if (file) {
+      fileName = file.name;
+    }
     dispatch('change', {file});
   };
 
@@ -52,7 +54,7 @@
 
   .file-upload {
       border: solid 1px #ebebeb;
-      padding: 13px;
+      padding: 10px;
       vertical-align: middle;
   }
 
@@ -89,6 +91,28 @@
   .icon {
     vertical-align: middle;
   }
+
+  .input-status {
+    display: block;
+    font-size: 13px;
+    font-family: Montserrat;
+    font-weight: normal;
+    color: #444;
+    line-height: 1.3;
+    padding: 10px;
+    padding-top: 13px;
+    width: 100%;
+    max-width: 100%; 
+    box-sizing: border-box;
+    margin: 0;
+    margin-bottom: 20px;
+    border: solid 1px #ebebeb;
+    border-radius: 0px;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    appearance: none;
+    padding-left: 50px;
+  }
 </style>
 
 <div class="container">
@@ -101,14 +125,14 @@
   <br/>
   <div class="input-description" >
   <img src="description.svg" class="icon"/>
-  <span class="input-description-text" on:change={() => handleMetadata(this.value)} contenteditable="true">Document description</span>
+  <span class="input-description-text" on:input={() => handleMetadata(this.innerText)} contenteditable="true">Document description</span>
   </div>
   <br/>
-  {#if status}
+  <!-- {#if status} -->
   {#await statusList}
   <!-- -->
   {:then list}
-  <select on:change={() => { handleStatus(this.value) }}>
+  <select class="input-status input-status-icon" on:change={() => { handleStatus(this.value) }}>
   {#each list as potentialStatus, i }
     <option selected={status == potentialStatus}>{potentialStatus}</option>
   {/each}
@@ -116,5 +140,5 @@
   {:catch error}
   <!-- -->
   {/await}
-  {/if}
+  <!-- {/if} -->
 </div>

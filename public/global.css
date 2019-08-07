@@ -164,3 +164,18 @@ html, body {
 	padding: 10px;
 	margin-bottom: 10px;
 }
+
+.input-status-icon {
+	background: url('./status.svg');
+	background-repeat: no-repeat;
+	background-position-x: 10px;
+	background-position-y: 10px;
+}
+
+.error {
+    color: red;
+	font-family: Montserrat;
+	font-size: 13px;
+	font-weight: bold;
+	margin-top: 20px;
+}

@@ -132,27 +132,22 @@
     flex-direction: column;
   }
   .actions {
-    width: 100%;
-    max-width: 400px;
-    display: flex;
     justify-content: space-between;
+    text-align: center;
+    display: block;
   }
-  .actions button {
-    width: 49%;
-  }
-
   .isDragOver {
     opacity: 0.7;
     border: 1px dashed black;
   }
 
   button {
-    border-radius: 30px;
+    border-radius: 31px;
     background-color: #536696;
-    padding-left: 20px;
-    padding-right: 20px;
-    padding-top: 10px;
-    padding-bottom: 10px;
+    padding-left: 25px;
+    padding-right: 25px;
+    padding-top: 15px;
+    padding-bottom: 15px;
     object-fit: contain;
     font-family: Montserrat;
     font-size: 12px;
@@ -164,9 +159,6 @@
     color: #ffffff;
   }
 
-  .actions {
-    text-align: center;
-  }
 </style>
 
 {#if showChoiceScreen}
@@ -229,9 +221,10 @@
       status={status}
     />
     <div class="actions">
-      <button disabled={!file} on:click={registerHandler}>Register</button>
-      {#if status}
-      <button disabled={!file} on:click={updateStatus}>Update</button>
+      {#if !results}
+      <button disabled={!file} on:click={registerHandler}>REGISTER DOCUMENT</button>
+      {:else if status != results.status}
+      <!-- <button disabled={!file} on:click={updateStatus}>Update</button> -->
       {/if}
     </div>
     {#if error}
