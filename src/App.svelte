@@ -145,6 +145,28 @@
     opacity: 0.7;
     border: 1px dashed black;
   }
+
+  button {
+    border-radius: 30px;
+    background-color: #536696;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    object-fit: contain;
+    font-family: Montserrat;
+    font-size: 12px;
+    font-weight: bold;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 2.17;
+    letter-spacing: 0.19px;
+    color: #ffffff;
+  }
+
+  .actions {
+    text-align: center;
+  }
 </style>
 
 {#if showChoiceScreen}
@@ -163,9 +185,9 @@
 <div class="content-container">
 <div class="content-cell">
   <div class="content-header">Orbs File Notarization</div>
-  <div class="content-description">Verify the document here</div>
   
   {#if showVerify}
+    <div class="content-description">Verify the document here</div>
     {#if !file}
     <div class="content-dragndrop"
       class:isDragOver
@@ -187,7 +209,7 @@
     </div>
     {/if}
   {:else if showRegister}
-    <h1>Orbs Notary</h1>
+    <div class="content-description">Register the document here</div>
     <Input
       on:change={ev => {
         if (ev.detail.file) {
@@ -208,7 +230,6 @@
     />
     <div class="actions">
       <button disabled={!file} on:click={registerHandler}>Register</button>
-      <button disabled={!file} on:click={verifyHandler}>Verify</button>
       {#if status}
       <button disabled={!file} on:click={updateStatus}>Update</button>
       {/if}

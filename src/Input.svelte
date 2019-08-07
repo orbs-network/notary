@@ -2,24 +2,12 @@
   import { createEventDispatcher } from 'svelte';
   export let actions;
   export let status;
+  let fileName = "Select file";
 
   const dispatch = createEventDispatcher();
 
-  let isFileValid = true;
-  const MB_10 = 10485760;
-
-  const isValid = file => {
-    return file.size < MB_10;
-  };
-
   const handleFile = file => {
-    isFileValid = true;
-
-    if (!isValid(file)) {
-      isFileValid = false;
-      return;
-    }
-
+    fileName = file.name;
     dispatch('change', {file});
   };
 
@@ -33,34 +21,88 @@
 
   let statusList = actions.getStatusList();
 
+  const getFileElement = () => {
+    return document.getElementById("file")
+  }
+
 </script>
 
-<style>
-  .container {
-    margin: 2rem 0;
-    width: 30em;
-  }
-  .validation {
-    color: red;
-    font-size: 0.8rem;
-  }
+<style>  
   input[type=file] {
     border: none;
+    visibility: hidden;
   }
-  input[type=text] {
-    width: 80%;
+  .input-description {
+    font-family: Montserrat;
+    font-size: 13px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 2;
+    letter-spacing: 0.21px;
+    color: #202020;
+    border: solid 1px #ebebeb;
+    padding: 10px; 
+  }
+
+  .input-description-text { 
+    padding-left: 10px;
+    outline: none; 
+  }
+
+  .file-upload {
+      border: solid 1px #ebebeb;
+      padding: 13px;
+      vertical-align: middle;
+  }
+
+  .file-name {
+    font-family: Montserrat;
+    font-size: 13px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 2;
+    letter-spacing: 0.21px;
+    color: #202020;
+    padding-left: 10px;
+  }
+
+  .change-file-button {
+    font-family: Montserrat;
+    font-size: 13px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 2.17;
+    letter-spacing: 0.19px;
+    text-align: center;
+    color: #ffffff;
+    background-color: darkgrey;
+    border-radius: 20px;
+    padding-left: 10px;
+    padding-right: 10px;
+    float: right;
+    cursor: pointer;
+  }
+
+  .icon {
+    vertical-align: middle;
   }
 </style>
 
 <div class="container">
-  <input type="file" on:change={() => handleFile(this.files[0])} />
-  {#if !isFileValid}
-    <p class="validation">
-      Size should not exceed 10MB. Please choose another file.
-    </p>
-  {/if}
+  <div class="file-upload" on:click={() => getFileElement().click()}>
+  <img src="./upload-doc.svg" class="icon">
+  <span class="file-name">{fileName}</span>
+  <span class="change-file-button">Change File</span>
+  </div>
+  <input type="file" id="file" on:change={() => handleFile(this.files[0])} />
   <br/>
-  <input type="text" placeholder="Document description" on:change={() => handleMetadata(this.value)}/>
+  <div class="input-description" >
+  <img src="description.svg" class="icon"/>
+  <span class="input-description-text" on:change={() => handleMetadata(this.value)} contenteditable="true">Document description</span>
+  </div>
   <br/>
   {#if status}
   {#await statusList}
