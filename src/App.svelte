@@ -5,11 +5,13 @@
   import Explanations from './Explanations.svelte';
   import Audit from './Audit.svelte';
   import Keys from './Keys.svelte';
+	import { onMount } from 'svelte';
 
   let file, metadata, error, results, events, status;
   let showChoiceScreen = true;
   let showRegister = false;
   let showVerify = false;
+  let isDragOver = false;
 
   export let actions;
   export let audit;
@@ -85,6 +87,25 @@
     showChoiceScreen = false;
     showVerify = true;
   }
+
+  const allowDrop = (e) => {
+    console.log(e);
+    e.preventDefault();
+  }
+
+  const drop = (e) => {
+    e.preventDefault();
+    console.log(e)
+    if (!e.dataTransfer) {
+      return;
+    }
+
+    const [ item ] = e.dataTransfer.items;
+    if (item && item.kind === 'file') {
+      console.log(item)
+      console.log(item.getAsFile())
+    }
+  }
 </script>
 
 <style>
@@ -102,6 +123,11 @@
   .actions button {
     width: 49%;
   }
+
+  .isDragOver {
+    opacity: 0.7;
+    border: 1px dashed black;
+  }
 </style>
 
 {#if showChoiceScreen}
@@ -112,7 +138,7 @@
 <div class="action-container verify" on:click={showVerifyHandler}>
 <span class="action-cell">Verify</span>
 </div>
-{:else if showRegister}
+{:else if showVerify}
 <div class="header">
 <img src="./orbs.svg"/><img src="./orbs-text.svg"/>
 </div>
@@ -121,7 +147,14 @@
 <div class="content-cell">
   <div class="content-header">NOTARY FILE</div>
   <div class="content-description">Orbs Notary serves two simple purposes:<br/>register and verify documents.</div>
-  <div class="content-dragndrop">
+  <div class="content-dragndrop"
+    class:isDragOver
+    on:dragover|preventDefault|stopPropagation={() => (isDragOver = true)}
+    on:dragenter|preventDefault|stopPropagation={() => (isDragOver = true)}
+    on:dragleave|preventDefault|stopPropagation={() => (isDragOver = false)}
+    on:dragend|preventDefault|stopPropagation={() => (isDragOver = false)}
+    on:drop|preventDefault|stopPropagation={ev => ((isDragOver = true), file = ev.dataTransfer.files[0], verifyHandler())}
+    >
     <div class="document-icons">
       <img src="./pdf-file.svg"/>
       <img src="./doc-file.svg"/>
@@ -132,19 +165,19 @@
       <div class="content-dragndrop-description-subheader">to upload file</div>
     </div>
   </div>
+  <script>
+    
+
+  </script>
 </div>
 </div>
-{:else if showVerify}
+{:else if showRegister}
 <div class="header">
 <img src="./orbs.svg"/><img src="./orbs-text.svg"/>
 </div>
 
 <div class="content">
-</div>
-{/if}
 
-
-<!--
 <div class="container">
   <h1>Orbs Notary</h1>
   <Keys privateKey={privateKey} address={address}/>
@@ -185,4 +218,6 @@
     <Audit events={events} />
   {/if}
 </div>
--->
+
+</div>
+{/if}
