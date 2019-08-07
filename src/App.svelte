@@ -78,22 +78,31 @@
     });
   };
 
-  const showRegisterHandler = () => {
+  const resetShowHandlers = () => {
     showChoiceScreen = false;
-    showRegister = true;
+    showRegister = false;
     showVerify = false;
+  }
+
+  const showRegisterHandler = () => {
+    resetShowHandlers();
+    resetResults();
+    showRegister = true;
+    file = undefined;
   }
 
   const showVerifyHandler = () => {
-    showChoiceScreen = false;
+    resetShowHandlers();
+    resetResults();
     showVerify = true;
-    showRegister = false;
+    file = undefined;
   }
 
   const showChoiceScreenHandler = () => {
+    resetShowHandlers();
+    resetResults();
     showChoiceScreen = true;
-    showVerify = false;
-    showRegister = false;
+    file = undefined;
   }
 
   const allowDrop = (e) => {
@@ -146,85 +155,69 @@
 <div class="action-container verify" on:click={showVerifyHandler}>
 <span class="action-cell">Verify</span>
 </div>
-{:else if showVerify}
+{:else}
 <div class="header">
 <a href="#" on:click={showChoiceScreenHandler}><img src="./orbs.svg"/><img src="./orbs-text.svg"/></a>
 </div>
 
 <div class="content-container">
 <div class="content-cell">
-  <div class="content-header">NOTARY FILE</div>
-  <div class="content-description">Orbs Notary serves two simple purposes:<br/>register and verify documents.</div>
+  <div class="content-header">Orbs File Notarization</div>
+  <div class="content-description">Verify the document here</div>
   
-  {#if !file}
-  <div class="content-dragndrop"
-    class:isDragOver
-    on:dragover|preventDefault|stopPropagation={() => (isDragOver = true)}
-    on:dragenter|preventDefault|stopPropagation={() => (isDragOver = true)}
-    on:dragleave|preventDefault|stopPropagation={() => (isDragOver = false)}
-    on:dragend|preventDefault|stopPropagation={() => (isDragOver = false)}
-    on:drop|preventDefault|stopPropagation={ev => ((isDragOver = true), file = ev.dataTransfer.files[0], verifyHandler())}
-    >
-    <div class="document-icons">
-      <img src="./pdf-file.svg"/>
-      <img src="./doc-file.svg"/>
-      <img src="./jpg-file.svg"/>
+  {#if showVerify}
+    {#if !file}
+    <div class="content-dragndrop"
+      class:isDragOver
+      on:dragover|preventDefault|stopPropagation={() => (isDragOver = true)}
+      on:dragenter|preventDefault|stopPropagation={() => (isDragOver = true)}
+      on:dragleave|preventDefault|stopPropagation={() => (isDragOver = false)}
+      on:dragend|preventDefault|stopPropagation={() => (isDragOver = false)}
+      on:drop|preventDefault|stopPropagation={ev => ((isDragOver = true), file = ev.dataTransfer.files[0], verifyHandler())}
+      >
+      <div class="document-icons">
+        <img src="./pdf-file.svg"/>
+        <img src="./doc-file.svg"/>
+        <img src="./jpg-file.svg"/>
+      </div>
+      <div class="content-dragndrop-description">
+        <div class="content-dragndrop-description-header">DRAG & DROP</div>
+        <div class="content-dragndrop-description-subheader">to upload file</div>
+      </div>
     </div>
-    <div class="content-dragndrop-description">
-      <div class="content-dragndrop-description-header">DRAG & DROP</div>
-      <div class="content-dragndrop-description-subheader">to upload file</div>
-    </div>
-  </div>
-  {/if}
-
-  {#if results}
-    <Result result={results} />
-  {/if}
-
-  {#if events}
-    <Audit events={events} />
-  {/if}
-</div>
-</div>
-{:else if showRegister}
-<div class="header">
-<a href="#" on:click={showChoiceScreenHandler}><img src="./orbs.svg"/><img src="./orbs-text.svg"/></a>
-</div>
-
-<div class="content">
-
-<div class="container">
-  <h1>Orbs Notary</h1>
-  <Keys privateKey={privateKey} address={address}/>
-  <Explanations />
-  <Input
-    on:change={ev => {
-      if (ev.detail.file) {
-        file = ev.detail.file;
-        resetResults();
-      }
-
-      if (ev.detail.metadata) {
-        metadata = ev.detail.metadata;
-      }
-
-      if (ev.detail.status) {
-        status = ev.detail.status;
-      }
-    }}
-    actions={actions}
-    status={status}
-  />
-  <div class="actions">
-    <button disabled={!file} on:click={registerHandler}>Register</button>
-    <button disabled={!file} on:click={verifyHandler}>Verify</button>
-    {#if status}
-    <button disabled={!file} on:click={updateStatus}>Update</button>
     {/if}
-  </div>
-  {#if error}
-    <Error {error} />
+  {:else if showRegister}
+    <h1>Orbs Notary</h1>
+    <Input
+      on:change={ev => {
+        if (ev.detail.file) {
+          file = ev.detail.file;
+          resetResults();
+        }
+
+        if (ev.detail.metadata) {
+          metadata = ev.detail.metadata;
+        }
+
+        if (ev.detail.status) {
+          status = ev.detail.status;
+        }
+      }}
+      actions={actions}
+      status={status}
+    />
+    <div class="actions">
+      <button disabled={!file} on:click={registerHandler}>Register</button>
+      <button disabled={!file} on:click={verifyHandler}>Verify</button>
+      {#if status}
+      <button disabled={!file} on:click={updateStatus}>Update</button>
+      {/if}
+    </div>
+    {#if error}
+      <Error {error} />
+    {/if}
   {/if}
+
   {#if results}
     <Result result={results} />
   {/if}
@@ -233,6 +226,5 @@
     <Audit events={events} />
   {/if}
 </div>
-
 </div>
 {/if}
