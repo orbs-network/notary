@@ -94,11 +94,11 @@ html, body {
 	letter-spacing: 0.22px;
 	text-align: center;
 	color: #000000;
+	margin-bottom: 50px;
 }
 
 .content-dragndrop {
 	border: 1px dashed #d8d8d8;
-	margin-top: 50px;
 	padding: 50px;
 }
 
@@ -138,3 +138,29 @@ html, body {
 	text-align: center;
 }
 
+.field {
+    font-family: Montserrat;
+    font-size: 11px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 2.36;
+    letter-spacing: 0.68px;
+    color: #202020;
+  }
+
+.title {
+	font-weight: bold;
+}
+
+.verification-result {
+    border: solid 1px #ebebeb;
+	padding: 10px;
+	margin-bottom: 10px;
+}
+
+.events-block {
+    border: solid 1px #ebebeb;
+	padding: 10px;
+	margin-bottom: 10px;
+}

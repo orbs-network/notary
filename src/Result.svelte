@@ -19,20 +19,35 @@
     });
 </script>
 
-<style>
-  table {
-    font-size: 12px;
-  }
-  .space {
-    padding-right: 1rem;
-  }
-  .wrap {
-    word-break: break-all;
-  }
-</style>
 
-<h5>Result:</h5>
-<table>
+<div class="verification-result">
+  <div class="field">
+  <span class="title">Document description:</span>
+  {result.metadata}
+  </div>
+
+  <div class="field">
+  <span class="title">Content hash:</span>
+  {result.hash}
+  </div>
+
+  <div class="field">
+  <span class="title">Signed by:</span>
+  {result.signer}
+  </div>
+
+  <div class="field">
+  <span class="title">Registered on:</span>
+  {formatTimestamp(result.timestamp)}
+  </div>
+
+  <div class="field">
+  <span class="title">Status:</span>
+  {result.status}
+  </div>
+</div>
+
+<!--<table>
   <tr>
     <td class="space">Content hash:</td>
     <td class="wrap">{result.hash}</td>
@@ -73,4 +88,4 @@
     <td>{result.timestamp !== 0 ? result.status : ''}</td>
   </tr>
 
-</table>
+</table>-->

@@ -81,11 +81,19 @@
   const showRegisterHandler = () => {
     showChoiceScreen = false;
     showRegister = true;
+    showVerify = false;
   }
 
   const showVerifyHandler = () => {
     showChoiceScreen = false;
     showVerify = true;
+    showRegister = false;
+  }
+
+  const showChoiceScreenHandler = () => {
+    showChoiceScreen = true;
+    showVerify = false;
+    showRegister = false;
   }
 
   const allowDrop = (e) => {
@@ -140,13 +148,15 @@
 </div>
 {:else if showVerify}
 <div class="header">
-<img src="./orbs.svg"/><img src="./orbs-text.svg"/>
+<a href="#" on:click={showChoiceScreenHandler}><img src="./orbs.svg"/><img src="./orbs-text.svg"/></a>
 </div>
 
 <div class="content-container">
 <div class="content-cell">
   <div class="content-header">NOTARY FILE</div>
   <div class="content-description">Orbs Notary serves two simple purposes:<br/>register and verify documents.</div>
+  
+  {#if !file}
   <div class="content-dragndrop"
     class:isDragOver
     on:dragover|preventDefault|stopPropagation={() => (isDragOver = true)}
@@ -165,15 +175,20 @@
       <div class="content-dragndrop-description-subheader">to upload file</div>
     </div>
   </div>
-  <script>
-    
+  {/if}
 
-  </script>
+  {#if results}
+    <Result result={results} />
+  {/if}
+
+  {#if events}
+    <Audit events={events} />
+  {/if}
 </div>
 </div>
 {:else if showRegister}
 <div class="header">
-<img src="./orbs.svg"/><img src="./orbs-text.svg"/>
+<a href="#" on:click={showChoiceScreenHandler}><img src="./orbs.svg"/><img src="./orbs-text.svg"/></a>
 </div>
 
 <div class="content">
