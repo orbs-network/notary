@@ -1,17 +1,17 @@
 <script>
   import { createEventDispatcher } from 'svelte';
-  export let actions;
+  import SelectFile from "./SelectFile.svelte";
   export let status;
-  let fileName = "";
+  export let actions;
+  
 
   const dispatch = createEventDispatcher();
 
-  const handleFile = file => {
-    if (file) {
-      fileName = file.name;
+  const handleFile = (ev) => {
+    if (ev.detail.file) {
+      dispatch('change', {file: ev.detail.file});
     }
-    dispatch('change', {file});
-  };
+  }
 
   const handleMetadata = (metadata) => {
     dispatch('change', {metadata});
@@ -22,18 +22,9 @@
   }
 
   let statusList = actions.getStatusList();
-
-  const getFileElement = () => {
-    return document.getElementById("file")
-  }
-
 </script>
 
-<style>  
-  input[type=file] {
-    border: none;
-    visibility: hidden;
-  }
+<style>
   .input-description {
     font-family: Montserrat;
     font-size: 13px;
@@ -50,42 +41,6 @@
   .input-description-text { 
     padding-left: 10px;
     outline: none; 
-  }
-
-  .file-upload {
-      border: solid 1px #ebebeb;
-      padding: 10px;
-      vertical-align: middle;
-  }
-
-  .file-name {
-    font-family: Montserrat;
-    font-size: 13px;
-    font-weight: normal;
-    font-style: normal;
-    font-stretch: normal;
-    line-height: 2;
-    letter-spacing: 0.21px;
-    color: #202020;
-    padding-left: 10px;
-  }
-
-  .change-file-button {
-    font-family: Montserrat;
-    font-size: 13px;
-    font-weight: normal;
-    font-style: normal;
-    font-stretch: normal;
-    line-height: 2.17;
-    letter-spacing: 0.19px;
-    text-align: center;
-    color: #ffffff;
-    background-color: darkgrey;
-    border-radius: 20px;
-    padding-left: 10px;
-    padding-right: 10px;
-    float: right;
-    cursor: pointer;
   }
 
   .icon {
@@ -116,12 +71,9 @@
 </style>
 
 <div class="container">
-  <div class="file-upload" on:click={() => getFileElement().click()}>
-  <img src="./upload-doc.svg" class="icon">
-  <span class="file-name">{fileName}</span>
-  <span class="change-file-button">Select File</span>
-  </div>
-  <input type="file" id="file" on:change={() => handleFile(this.files[0])} />
+  <SelectFile 
+    on:change={handleFile}
+   />
   <br/>
   <div class="input-description" >
   <img src="description.svg" class="icon"/>

@@ -2,7 +2,6 @@
   import Input from './Input.svelte';
   import Error from './Error.svelte';
   import Result from './Result.svelte';
-  import Explanations from './Explanations.svelte';
   import Audit from './Audit.svelte';
   import Keys from './Keys.svelte';
 	import { onMount } from 'svelte';
