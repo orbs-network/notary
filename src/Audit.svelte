@@ -30,36 +30,21 @@
   }
 </style>
 
-<h5>Events:</h5>
-<table>
-  {#each events as { action, from, to, signer, timestamp }, i }
-  <tr>
-    <td class="space">Date</td>
-    <td class="wrap">{formatTimestamp(timestamp)}</td>
-  </tr>
-  <tr>
-    <td class="space">Action</td>
-    <td class="wrap">{action}</td>
-  </tr>
-  {#if from}
-  <tr>
-    <td class="space">Changed from</td>
-    <td class="wrap">{from}</td>
-  </tr>
-  {/if}
-  {#if to}
-  <tr>
-    <td class="space">Changed to</td>
-    <td class="wrap">{to}</td>
-  </tr>
-  {/if}
-  <tr>
-    <td class="space">Signed by</td>
-    <td class="wrap">{signer}</td>
-  </tr> 
-  <tr>
-    <td class="space break"></td>
-    <td class="wrap"></td>
-  </tr>
-  {/each}
-</table>
+{#each events as { action, from, to, signer, timestamp }, i }
+<div class="verification-result">
+  <div class="field">
+  <span class="title">Action:</span>
+  {action} {#if from}from {from}{/if} {#if to}to {to}{/if}
+  </div>
+
+  <div class="field">
+  <span class="title">Signed by:</span>
+  {signer}
+  </div>
+
+  <div class="field">
+  <span class="title">Date:</span>
+  {formatTimestamp(timestamp)}
+  </div>
+</div>
+{/each}

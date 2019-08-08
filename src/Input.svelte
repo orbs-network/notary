@@ -1,27 +1,17 @@
 <script>
   import { createEventDispatcher } from 'svelte';
-  export let actions;
+  import SelectFile from "./SelectFile.svelte";
   export let status;
+  export let actions;
+  
 
   const dispatch = createEventDispatcher();
 
-  let isFileValid = true;
-  const MB_10 = 10485760;
-
-  const isValid = file => {
-    return file.size < MB_10;
-  };
-
-  const handleFile = file => {
-    isFileValid = true;
-
-    if (!isValid(file)) {
-      isFileValid = false;
-      return;
+  const handleFile = (ev) => {
+    if (ev.detail.file) {
+      dispatch('change', {file: ev.detail.file});
     }
-
-    dispatch('change', {file});
-  };
+  }
 
   const handleMetadata = (metadata) => {
     dispatch('change', {metadata});
@@ -32,47 +22,74 @@
   }
 
   let statusList = actions.getStatusList();
-
 </script>
 
 <style>
-  .container {
-    margin: 2rem 0;
-    width: 30em;
+  .input-description {
+    font-family: Montserrat;
+    font-size: 13px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 2;
+    letter-spacing: 0.21px;
+    color: #202020;
+    border: solid 1px #ebebeb;
+    padding: 10px; 
   }
-  .validation {
-    color: red;
-    font-size: 0.8rem;
+
+  .input-description-text { 
+    padding-left: 10px;
+    outline: none; 
   }
-  input[type=file] {
-    border: none;
+
+  .icon {
+    vertical-align: middle;
   }
-  input[type=text] {
-    width: 80%;
+
+  .input-status {
+    display: block;
+    font-size: 13px;
+    font-family: Montserrat;
+    font-weight: normal;
+    color: #444;
+    line-height: 1.3;
+    padding: 10px;
+    padding-top: 13px;
+    width: 100%;
+    max-width: 100%; 
+    box-sizing: border-box;
+    margin: 0;
+    margin-bottom: 20px;
+    border: solid 1px #ebebeb;
+    border-radius: 0px;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    appearance: none;
+    padding-left: 50px;
   }
 </style>
 
 <div class="container">
-  <input type="file" on:change={() => handleFile(this.files[0])} />
-  {#if !isFileValid}
-    <p class="validation">
-      Size should not exceed 10MB. Please choose another file.
-    </p>
-  {/if}
+  <SelectFile 
+    on:change={handleFile}
+   />
   <br/>
-  <input type="text" placeholder="Document description" on:change={() => handleMetadata(this.value)}/>
-  <br/>
-  {#if status}
+  <div class="input-description" >
+  <img src="description.svg" class="icon"/>
+  <span class="input-description-text" on:input={() => handleMetadata(this.innerText)} contenteditable="true">Document description</span>
+  </div>
+  <!-- {#if status} -->
   {#await statusList}
   <!-- -->
   {:then list}
-  <select on:change={() => { handleStatus(this.value) }}>
+  <!-- <select class="input-status input-status-icon" on:change={() => { handleStatus(this.value) }}>
   {#each list as potentialStatus, i }
     <option selected={status == potentialStatus}>{potentialStatus}</option>
   {/each}
-  </select>
+  </select> -->
   {:catch error}
   <!-- -->
   {/await}
-  {/if}
+  <!-- {/if} -->
 </div>
