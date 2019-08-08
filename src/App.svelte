@@ -54,7 +54,7 @@
     console.log(res);
     status = res.status;
     if (!res.verified) {
-      error = {message: 'The document is not verified'};
+      error = {message: 'The document is not registered'};
     }
 
     events = await audit.getEventsByHash(hash);
