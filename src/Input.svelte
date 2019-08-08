@@ -79,7 +79,6 @@
   <img src="description.svg" class="icon"/>
   <span class="input-description-text" on:input={() => handleMetadata(this.innerText)} contenteditable="true">Document description</span>
   </div>
-  <br/>
   <!-- {#if status} -->
   {#await statusList}
   <!-- -->

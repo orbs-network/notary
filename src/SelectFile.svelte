@@ -1,6 +1,6 @@
 <script>
   import { createEventDispatcher } from 'svelte';
-  let fileName = "";
+  export let fileName = "";
 
   const dispatch = createEventDispatcher();
 

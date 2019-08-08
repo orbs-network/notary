@@ -4,6 +4,7 @@
   import Result from './Result.svelte';
   import Audit from './Audit.svelte';
   import Keys from './Keys.svelte';
+  import SelectFile from './SelectFile.svelte';
 	import { onMount } from 'svelte';
 
   let file, metadata, error, results, events, status;
@@ -53,7 +54,7 @@
     console.log(res);
     status = res.status;
     if (!res.verified) {
-      error = {message: 'Not verified'};
+      error = {message: 'The document is not verified'};
     }
 
     events = await audit.getEventsByHash(hash);
@@ -138,6 +139,7 @@
     justify-content: space-between;
     text-align: center;
     display: block;
+    margin: 20px;
   }
   .isDragOver {
     opacity: 0.7;
@@ -202,7 +204,16 @@
         <div class="content-dragndrop-description-subheader">to upload file</div>
       </div>
     </div>
+    {:else}
+    <SelectFile
+      fileName={file.name}
+      on:change={(e) => {
+        file = e.detail.file;
+        verifyHandler();
+      }}
+    />
     {/if}
+
   {:else if showRegister}
     <div class="content-description">Register the document here</div>
     <Input
@@ -230,9 +241,10 @@
       <!-- <button disabled={!file} on:click={updateStatus}>Update</button> -->
       {/if}
     </div>
-    {#if error}
-      <Error {error} />
-    {/if}
+  {/if}
+
+  {#if error}
+    <Error {error} />
   {/if}
 
   {#if results}
