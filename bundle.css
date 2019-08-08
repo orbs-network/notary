@@ -1,8 +1,5 @@
-.container.svelte-qcoeyp{margin:2rem 0;width:30em}.validation.svelte-qcoeyp{color:red;font-size:0.8rem}input[type=file].svelte-qcoeyp{border:none}input[type=text].svelte-qcoeyp{width:80%}
-h5.svelte-1tdgp7h{color:red}
-table.svelte-5wvrhy{font-size:12px}.space.svelte-5wvrhy{padding-right:1rem}.wrap.svelte-5wvrhy{word-break:break-all}
-.explanations.svelte-cvwtax{color:grey;font-size:0.9rem}
-table.svelte-964lcg{font-size:12px}.space.svelte-964lcg{padding-right:1rem}.wrap.svelte-964lcg{word-break:break-all}td.break.svelte-964lcg{height:1rem}
+input[type=file].svelte-kogv6n{border:none;visibility:hidden}.file-upload.svelte-kogv6n{border:solid 1px #ebebeb;padding:10px;vertical-align:middle}.file-name.svelte-kogv6n{font-family:Montserrat;font-size:13px;font-weight:normal;font-style:normal;font-stretch:normal;line-height:2;letter-spacing:0.21px;color:#202020;padding-left:10px}.change-file-button.svelte-kogv6n{font-family:Montserrat;font-size:13px;font-weight:normal;font-style:normal;font-stretch:normal;line-height:2.17;letter-spacing:0.19px;text-align:center;color:#ffffff;background-color:darkgrey;border-radius:20px;padding-left:10px;padding-right:10px;float:right;cursor:pointer}
+.input-description.svelte-1dljjkn{font-family:Montserrat;font-size:13px;font-weight:normal;font-style:normal;font-stretch:normal;line-height:2;letter-spacing:0.21px;color:#202020;border:solid 1px #ebebeb;padding:10px}.input-description-text.svelte-1dljjkn{padding-left:10px;outline:none}.icon.svelte-1dljjkn{vertical-align:middle}
 .address.svelte-lzm2q2{font-family:'Courier New', Courier, monospace
     }
-.container.svelte-1jjakm0{margin:1rem;display:flex;flex-direction:column}.actions.svelte-1jjakm0{width:100%;max-width:400px;display:flex;justify-content:space-between}.actions.svelte-1jjakm0 button.svelte-1jjakm0{width:49%}
+.container.svelte-37whpu{margin:1rem;display:flex;flex-direction:column}.actions.svelte-37whpu{justify-content:space-between;text-align:center;display:block;margin:20px}.isDragOver.svelte-37whpu{opacity:0.7;border:1px dashed black}button.svelte-37whpu{border-radius:31px;background-color:#536696;padding-left:25px;padding-right:25px;padding-top:15px;padding-bottom:15px;object-fit:contain;font-family:Montserrat;font-size:12px;font-weight:bold;font-style:normal;font-stretch:normal;line-height:2.17;letter-spacing:0.19px;color:#ffffff}
