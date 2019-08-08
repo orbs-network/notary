@@ -28,8 +28,8 @@
 
   const registerHandler = async () => {
     resetResults();
+    const payload = await readFileFromBrowser(file);
     try {
-      const payload = await readFileFromBrowser(file);
       const res = await actions.register(payload, metadata || "");
       results = res;
       console.log(res);
@@ -38,6 +38,10 @@
     } catch (err) {
       error = { message: err };
       console.error(err);
+
+      let hash = sha256(payload);
+      results = await actions.verify(hash, payload);
+      events = await audit.getEventsByHash(hash);
     }
   };
 

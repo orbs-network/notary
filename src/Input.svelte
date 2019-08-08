@@ -2,7 +2,7 @@
   import { createEventDispatcher } from 'svelte';
   export let actions;
   export let status;
-  let fileName = "Select file";
+  let fileName = "";
 
   const dispatch = createEventDispatcher();
 
@@ -119,7 +119,7 @@
   <div class="file-upload" on:click={() => getFileElement().click()}>
   <img src="./upload-doc.svg" class="icon">
   <span class="file-name">{fileName}</span>
-  <span class="change-file-button">Change File</span>
+  <span class="change-file-button">Select File</span>
   </div>
   <input type="file" id="file" on:change={() => handleFile(this.files[0])} />
   <br/>
@@ -132,11 +132,11 @@
   {#await statusList}
   <!-- -->
   {:then list}
-  <select class="input-status input-status-icon" on:change={() => { handleStatus(this.value) }}>
+  <!-- <select class="input-status input-status-icon" on:change={() => { handleStatus(this.value) }}>
   {#each list as potentialStatus, i }
     <option selected={status == potentialStatus}>{potentialStatus}</option>
   {/each}
-  </select>
+  </select> -->
   {:catch error}
   <!-- -->
   {/await}

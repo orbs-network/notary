@@ -177,5 +177,6 @@ html, body {
 	font-family: Montserrat;
 	font-size: 13px;
 	font-weight: bold;
-	margin-top: 20px;
+	margin-bottom: 20px;
+	text-align: center;
 }
