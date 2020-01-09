@@ -1,15 +1,15 @@
-import App from './App.svelte';
-import { Notary, Audit, sha256 } from 'orbs-notary-lib';
+import App from "./App.svelte";
+import { Notary, Audit, sha256 } from "orbs-notary-lib";
 import {
   createAccount,
   Client,
   encodeHex,
   decodeHex
-} from 'orbs-client-sdk';
+} from "orbs-client-sdk";
 
-const SENDER_PUBLIC_KEY = 'sender_public_key';
-const SENDER_PRIVATE_KEY = 'sender_private_key';
-const SENDER_ADDRESS = 'sender_address';
+const SENDER_PUBLIC_KEY = "sender_public_key";
+const SENDER_PRIVATE_KEY = "sender_private_key";
+const SENDER_ADDRESS = "sender_address";
 
 if (!localStorage.getItem(SENDER_PUBLIC_KEY)) {
   const sender = createAccount();
@@ -24,11 +24,14 @@ const address = localStorage.getItem(SENDER_ADDRESS);
 const orbsClient = new Client(
   process.env.ORBS_NODE_ADDRESS,
   process.env.ORBS_VCHAIN,
-  'TEST_NET'
+  "TEST_NET"
 );
 
-const actions = new Notary(orbsClient, 'Notary', publicKey, privateKey, true);
-const audit = new Audit(orbsClient, 'Audit', publicKey, privateKey);
+const NOTARY_CONTRACT_NAME = process.env.ORBS_NOTARY_CONTRACT || "Notary";
+const AUDIT_CONTRACT_NAME = process.env.ORBS_AUDIT_CONTRACT || "Audit";
+console.log(NOTARY_CONTRACT_NAME, AUDIT_CONTRACT_NAME)
+const actions = new Notary(orbsClient, NOTARY_CONTRACT_NAME, publicKey, privateKey, true);
+const audit = new Audit(orbsClient, AUDIT_CONTRACT_NAME, publicKey, privateKey);
 
 const app = new App({
   target: document.body,
