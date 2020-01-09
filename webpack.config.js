@@ -55,6 +55,8 @@ module.exports = {
       'ORBS_NODE_ADDRESS': process.env.ORBS_NODE_ADDRESS,
       'ORBS_VCHAIN': process.env.ORBS_VCHAIN,
       'ORBS_PRISM_URL': process.env.ORBS_PRISM_URL,
+      'ORBS_NOTARY_CONTRACT': process.env.ORBS_NOTARY_CONTRACT,
+      'ORBS_AUDIT_CONTRACT': process.env.ORBS_AUDIT_CONTRACT,
     })
   ],
   devtool: prod ? false : 'source-map'
