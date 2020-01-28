@@ -185,7 +185,14 @@
   
   {#if showVerify}
     <div class="content-description">Verify the document here</div>
-    {#if !file}
+    <SelectFile
+      fileName={(file && file.name) || ""}
+      on:change={(e) => {
+        file = e.detail.file;
+        verifyHandler();
+      }}
+    />
+    <!-- {#if !file}
     <div class="content-dragndrop"
       class:isDragOver
       on:dragover|preventDefault|stopPropagation={() => (isDragOver = true)}
@@ -204,15 +211,7 @@
         <div class="content-dragndrop-description-subheader">to upload file</div>
       </div>
     </div>
-    {:else}
-    <SelectFile
-      fileName={file.name}
-      on:change={(e) => {
-        file = e.detail.file;
-        verifyHandler();
-      }}
-    />
-    {/if}
+    {/if} -->
 
   {:else if showRegister}
     <div class="content-description">Register the document here</div>

@@ -1,6 +1,6 @@
 {
   "name": "notary-client",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "devDependencies": {
     "cross-env": "^5.2.0",
     "css-loader": "^2.1.1",
@@ -24,7 +24,7 @@
     "lint": "prettier --write 'src/**/*.{js,svelte}'",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d public",
-    "gamma:start": "gamma-cli start-local",
+    "gamma:start": "gamma-cli start-local -env experimental -wait",
     "gamma:stop": "gamma-cli stop-local",
     "notary:local": "node ./src/deploy.js",
     "notary:testnet": "ORBS_NODE_ADDRESS=http://node1.demonet.orbs.com/vchains/1000 ORBS_VCHAIN=1000 node ./src/deploy.js"
