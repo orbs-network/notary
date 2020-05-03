@@ -1,7 +1,8 @@
 {
   "name": "notary-client",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "devDependencies": {
+    "brfs": "^2.0.2",
     "cross-env": "^5.2.0",
     "css-loader": "^2.1.1",
     "gh-pages": "^2.0.1",
@@ -12,11 +13,10 @@
     "style-loader": "^0.23.1",
     "svelte": "^3.0.0",
     "svelte-loader": "2.13.3",
+    "transform-loader": "^0.2.4",
     "webpack": "^4.30.0",
-    "webpack-cli": "^3.3.0",
-    "webpack-dev-server": "^3.3.1",
-    "brfs": "^2.0.2",
-    "transform-loader": "^0.2.4"
+    "webpack-cli": "^3.3.11",
+    "webpack-dev-server": "^3.3.1"
   },
   "scripts": {
     "build": "cross-env NODE_ENV=production ORBS_NODE_ADDRESS=https://node1.demonet.orbs.com/vchains/1000 ORBS_VCHAIN=1000 ORBS_PRISM_URL=https://orbs-prism-demonet.herokuapp.com ORBS_NOTARY_CONTRACT=Notary ORBS_AUDIT_CONTRACT=Audit webpack",
@@ -24,14 +24,14 @@
     "lint": "prettier --write 'src/**/*.{js,svelte}'",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d public",
-    "gamma:start": "gamma-cli start-local -env experimental -wait",
+    "gamma:start": "gamma-cli start-local -wait",
     "gamma:stop": "gamma-cli stop-local",
     "notary:local": "node ./src/deploy.js",
-    "notary:testnet": "ORBS_NODE_ADDRESS=http://node1.demonet.orbs.com/vchains/1000 ORBS_VCHAIN=1000 node ./src/deploy.js"
+    "notary:testnet": "ORBS_NODE_ADDRESS=http://node2.demonet.orbs.com/vchains/1000 ORBS_VCHAIN=1000 ORBS_NOTARY_CONTRACT=NotaryTest0 ORBS_AUDIT_CONTRACT=AuditTest0 node ./src/deploy.js"
   },
   "dependencies": {
     "orbs-client-sdk": "^1.0.0",
-    "orbs-notary-lib": "https://github.com/orbs-network/orbs-notary-lib.git#master"
+    "orbs-notary-lib": "git+https://github.com/orbs-network/orbs-notary-lib.git#master"
   },
   "prettier": {
     "singleQuote": true
